@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modmind.dev/schemas/mcp-bridge-1.json",
+  "title": "ModMind MCP Bridge configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["port", "token", "version"],
+  "properties": {
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "token": {
+      "type": "string",
+      "minLength": 16
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
