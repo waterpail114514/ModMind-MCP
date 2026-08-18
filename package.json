@@ -1,0 +1,23 @@
+{
+  "name": "@modmind/mcp-server",
+  "version": "0.1.0",
+  "description": "stdio MCP server for the ModMind local bridge",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18.18"
+  },
+  "bin": {
+    "modmind-mcp-server": "src/mcp-server.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "files": [
+    "src/mcp-server.mjs",
+    "docs",
+    "examples",
+    "LICENSE",
+    "README.md"
+  ]
+}
