@@ -1,5 +1,9 @@
 # ModMind MCP
 
+本仓库当前源码按 GNU Affero General Public License v3.0-only
+（`AGPL-3.0-only`）授权；本次变更前已发布的版本仍按其原许可证提供。
+完整条款见 [`LICENSE`](LICENSE)。
+
 这是 ModMind 的本地 MCP 接入层，给 Codex、Claude Code、Gemini CLI、Cursor 等支持
 stdio MCP 的 Agent 使用。
 
@@ -32,7 +36,8 @@ ModMind Bridge 才是项目文件、Gradle、Minecraft 测试实例、整合包�
 {
   "port": 41234,
   "token": "replace-with-a-random-per-session-token",
-  "version": "0.1.0"
+  "version": "1.4.4",
+  "sourceFingerprint": "sha256:235b5b247370dc5069a627962c848fb0d80f557114a51f51ebf5610db303f504"
 }
 ```
 
@@ -154,5 +159,5 @@ test/mcp-server.test.mjs            fake bridge 协议测试
 
 ## 版本说明
 
-本副本基于 ModMind 桌面端 `1.3.4`，MCP 包版本为 `0.1.0`。两套版本独立管理；当
+本副本基于 ModMind 桌面端 `1.4.4`，MCP 包版本为 `0.2.0`。两套版本独立管理；当
 Bridge action、输入 schema、错误语义或安全行为发生不兼容变化时，应提升 MCP 包主版本。

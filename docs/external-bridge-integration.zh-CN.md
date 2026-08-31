@@ -72,6 +72,8 @@ Electron 运行时：
 }
 ```
 
+`sourceFingerprint` 是公开的源码来源标记，不是密钥，也不得用于鉴权或访问控制。
+
 ## 4. `bridge.json` 格式
 
 当前稳定字段如下；对应 schema 见 [`examples/bridge.schema.json`](../examples/bridge.schema.json)。
@@ -80,7 +82,8 @@ Electron 运行时：
 {
   "port": 41234,
   "token": "random-per-session-secret",
-  "version": "1.3.4"
+  "version": "1.4.4",
+  "sourceFingerprint": "sha256:235b5b247370dc5069a627962c848fb0d80f557114a51f51ebf5610db303f504"
 }
 ```
 
@@ -155,19 +158,23 @@ MCP 工具名映射到 HTTP `action` 的规则如下：
 
 | MCP 工具 | HTTP action | 当前公开 Bridge |
 | --- | --- | --- |
-| `modmind_project_info` | `project_info` | 支持 |
+| `modmind_project_info` / `modmind_project_files` | `project_info` / `project_files` | 支持 |
 | `modmind_rename_project` | `rename_project` | 支持 |
 | `modmind_set_intent` | `set_intent` | 支持 |
 | `modmind_apply_edits` | `apply_edits` | 支持 |
 | `modmind_update_todo` | `update_todo` | 支持 |
 | `modmind_mapping_search` / `modmind_mapping_class` | `mappings_search` / `mappings_class` | 支持 |
 | `modmind_dependency_search` / `modmind_dependency_install` | `dependency_search` / `dependency_install` | 支持 |
+| `modmind_maven_dependency_install` | `maven_dependency_install` | 支持 |
+| `modmind_addon_*` | `addon_relationships` / `addon_prepare` / `addon_import` / `addon_link_project` | 支持；需要宿主实现附属目标管理 |
 | `modmind_validate_content` | `content_validate` | 支持 |
 | `modmind_test_matrix` | `test_matrix` | 支持 |
 | `modmind_release_preflight` | `release_preflight` | 支持 |
 | `modmind_build_project` / `modmind_test_minecraft` | `build_project` / `test_minecraft` | 支持 |
 | `modmind_blockbench_actions` | `blockbench_actions` | 支持 |
 | `modmind_runtime_state` | `runtime_state` | 支持 |
+| `modmind_scan_java_homes` / `modmind_probe_java_home` | `scan_java_homes` / `probe_java_home` | 支持，只读 |
+| `modmind_get_app_settings` / `modmind_set_app_setting` | `get_app_settings` / `set_app_setting` | 支持；`set_app_setting` 属受审查的变更类操作 |
 | `modmind_image_*` | `image_*` | 支持，依赖 Image Studio 配置 |
 | `modmind_modpack_*` / `modmind_mcmod_*` | 对应去掉 `modmind_` 的 action | 支持；仅对整合包项目生效，服务器验证还需要本地运行时依赖 |
 

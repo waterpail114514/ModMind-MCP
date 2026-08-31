@@ -1,0 +1,5 @@
+node_modules/
+bridge.json
+*.local.json
+*.recovery-backup
+.DS_Store
