@@ -42,6 +42,28 @@ For the ModMind desktop host startup command, project selection, lifecycle, acti
 mapping, and compatibility requirements, see
 [`docs/external-bridge-integration.zh-CN.md`](docs/external-bridge-integration.zh-CN.md).
 
+## Command-line adapter
+
+This copy also ships a command-line adapter, so the same bridge can be driven from
+a shell, a script, or CI without an MCP client:
+
+```powershell
+$env:MODMIND_BRIDGE_CONFIG = "C:\path\to\project\.modmind\external-agents\bridge.json"
+node .\src\cli.mjs doctor                       # resolve and validate the config, then probe
+node .\src\cli.mjs call project_info --json     # run one action
+node .\src\cli.mjs call project_info --dry-run  # print the request instead of sending it
+```
+
+It takes **bridge actions**, not MCP tool names: the mapping is not a plain prefix
+strip (`modmind_validate_content` maps to `content_validate`), so the adapter does not
+guess. See the action families in [`docs/bridge-contract.md`](docs/bridge-contract.md).
+
+Exit codes: `0` success, `2` usage error, `3` bridge unavailable (missing
+`bridge.json`, rejected token, or nothing listening), `4` action failed. With `--json`,
+stdout carries only JSON and every diagnostic goes to stderr; the token is never
+printed. Like the MCP server, this adapter is transport only — approval and review
+policy still belong to the host application.
+
 ## Security model
 
 The bridge binds to `127.0.0.1` and requires a random per-session token in the

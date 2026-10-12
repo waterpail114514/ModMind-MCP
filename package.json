@@ -1,20 +1,22 @@
 {
   "name": "@modmind/mcp-server",
   "version": "0.2.0",
-  "description": "stdio MCP server for the ModMind local bridge",
+  "description": "stdio MCP server and CLI adapter for the ModMind local bridge",
   "license": "AGPL-3.0-only",
   "type": "module",
   "engines": {
     "node": ">=18.18"
   },
   "bin": {
-    "modmind-mcp-server": "src/mcp-server.mjs"
+    "modmind-mcp-server": "src/mcp-server.mjs",
+    "modmind-bridge-cli": "src/cli.mjs"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"
   },
   "files": [
     "src/mcp-server.mjs",
+    "src/cli.mjs",
     "docs",
     "examples",
     "LICENSE",
