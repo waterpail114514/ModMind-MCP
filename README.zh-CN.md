@@ -52,6 +52,26 @@ node .\src\mcp-server.mjs
 启动后，进程会等待 MCP 客户端通过 stdin 发送请求。不要向 stdout 打印调试信息；
 stdout 只允许出现 MCP JSON 响应，调试日志请写 stderr。
 
+## 命令行直接调用（可选）
+
+本副本还带一个命令行适配器，用于在 shell、脚本或 CI 里直接驱动同一个 Bridge，
+不需要 MCP 客户端：
+
+```powershell
+$env:MODMIND_BRIDGE_CONFIG = "C:\path\to\project\.modmind\external-agents\bridge.json"
+node .\src\cli.mjs doctor                       # 解析并校验配置，然后探针
+node .\src\cli.mjs call project_info --json     # 调用一个 action
+node .\src\cli.mjs call project_info --dry-run  # 只打印将要发出的请求，不实际发送
+```
+
+它接收的是 **Bridge action 名**，不是 MCP 工具名 —— 两者不是简单的前缀关系
+（`modmind_validate_content` 对应 `content_validate`），所以不做前缀猜测；
+可用 action 见 [`docs/bridge-contract.md`](docs/bridge-contract.md) 的「Action families」。
+
+退出码：`0` 成功、`2` 用法错误、`3` Bridge 不可用（缺少 `bridge.json`、token 被拒、
+端口没有监听）、`4` action 执行失败。`--json` 时 stdout 只有 JSON，诊断一律走 stderr，
+并且**不会打印 token**。与 MCP Server 一样，它只负责传输 —— 审批与审查仍在宿主侧。
+
 ## 接入其他 Agent
 
 完整的外部 Bridge 启动和协议说明见
